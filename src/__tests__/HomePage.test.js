@@ -32,4 +32,4 @@ describe('<Homepage />', () => {
     const footer = screen.getByText(/©2023 cupid/i)
     expect(footer).toBeInTheDocument()
   })
-})
+}) 
