@@ -1,9 +1,16 @@
-import React from 'react'
+import Footer from '../components/Footer'
 
 const Homepage = () => {
   return (
-    <div>Homepage</div>
-  )
+    <>
+      <div className="home-container">
+        <h1>CodeCupid</h1>
+        <h2>connecting hearts through code</h2>
+      </div>
+
+      <Footer />
+    </>
+  );
 }
 
 export default Homepage
