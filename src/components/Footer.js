@@ -1,5 +1,5 @@
 import { Navbar } from "reactstrap";
-import './Components.css'
+import '../styles/Components.css'
 
 const Footer = () => {
   return (
