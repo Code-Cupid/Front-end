@@ -1,5 +1,5 @@
 import Footer from '../components/Footer'
-import '../Styling/Homepage.css'
+import '../styles/Homepage.css'
 
 const Homepage = () => {
   return (
