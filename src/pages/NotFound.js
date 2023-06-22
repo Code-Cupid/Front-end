@@ -1,8 +1,14 @@
 import React from 'react'
+import '../Styling/NotFound.css'
 
 const NotFound = () => {
+  
   return (
-    <div>NotFound</div>
+  <>
+    <div className="errorimg">
+      <img alt="page not found" src="./404 Image.jpeg" />
+    </div>
+  </>
   )
 }
 
