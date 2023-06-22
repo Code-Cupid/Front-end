@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react"
 import { BrowserRouter } from 'react-router-dom'
 import NotFound from "../pages/NotFound"
 
-describe("<NotFound />", () => {
+describe('<NotFound />', () => {
   it("renders without crashing", () => {
     render(
       <BrowserRouter>
@@ -11,7 +11,7 @@ describe("<NotFound />", () => {
     )
   })
 
-  it('renders "Page not found"', () => { 
+  it('renders "Page not found', () => { 
     render(
       <BrowserRouter>
         <NotFound />

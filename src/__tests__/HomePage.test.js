@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react"
 import { BrowserRouter } from 'react-router-dom'
-import HomePage from "../pages/Homepage"
+import Homepage from "../pages/Homepage"
 
-describe("<Homepage />", () => {
+describe('<Homepage />', () => {
   it("renders without crashing", () => {
     render(
       <BrowserRouter>
@@ -11,14 +11,25 @@ describe("<Homepage />", () => {
     )
   })
 
-  it('renders "Page not found"', () => { 
+  it('renders with a heading', () => { 
     render(
       <BrowserRouter>
         <Homepage />
       </BrowserRouter>
     )
-    screen.logTestingPlaygroundURL()
-    const errorHead = screen.getByAltText(/page not found/i)
-    expect(errorHead).toBeInTheDocument()
+    const header = screen.getByRole('heading', {
+      name: /codecupid/i
+    })
+    expect(header).toBeInTheDocument()
+  })
+
+  it('renders with a footer', () => { 
+    render(
+      <BrowserRouter>
+        <Homepage />
+      </BrowserRouter>
+    )
+    const footer = screen.getByText(/©2023 cupid/i)
+    expect(footer).toBeInTheDocument()
   })
 })
