@@ -1,0 +1,20 @@
+.home-container {
+margin: auto;
+width: 100%;
+flex-direction: column;
+}
+.CodeCupid {
+  margin-top: 3%;
+  padding: 3%;
+  font-family: 'Cupid';
+  color: white;
+  display: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 120px;
+}
+.tagline {
+  font-family: 'Cupid';
+  color: white;
+  font-size: 50px
+}
