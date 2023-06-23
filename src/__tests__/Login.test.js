@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/react"
 import { BrowserRouter } from 'react-router-dom'
-import SignUp from "../pages/SignUp"
+import Login from "../pages/Login"
 
-describe('<SignUp />', () => {
+describe('<Login />', () => {
   it("renders without crashing", () => {
     render(
       <BrowserRouter>
-        <SignUp />
+        <Login />
       </BrowserRouter>
     )
   })
@@ -14,19 +14,20 @@ describe('<SignUp />', () => {
   it('renders with a heading', () => { 
     render(
       <BrowserRouter>
-        <SignUp />
+        <Login />
       </BrowserRouter>
     )
-    const heading = screen.getByRole('heading', {name: /user information/i})
-    expect(heading).toBeInTheDocument()
+    const header = screen.getByRole('heading', {name: /login/i})
+    expect(header).toBeInTheDocument()
   })
 
   it('renders with an email textbox', () => { 
     render(
       <BrowserRouter>
-        <SignUp />
+        <Login />
       </BrowserRouter>
     )
+    screen.logTestingPlaygroundURL()
     const email = screen.getByRole('textbox', {name: /email/i})
     expect(email).toBeInTheDocument()
   })
@@ -34,7 +35,7 @@ describe('<SignUp />', () => {
   it('renders with a password label', () => { 
     render(
       <BrowserRouter>
-        <SignUp />
+        <Login />
       </BrowserRouter>
     )
     const password = screen.getByLabelText(/password/i)
@@ -44,20 +45,20 @@ describe('<SignUp />', () => {
   it('renders with a cancel button', () => { 
     render(
       <BrowserRouter>
-        <SignUp />
+        <Login />
       </BrowserRouter>
     )
     const cancel = screen.getByRole('button', {name: /cancel/i})
     expect(cancel).toBeInTheDocument()
   })
 
-  it('renders with a next button', () => { 
+  it('renders with a login button', () => { 
     render(
       <BrowserRouter>
-        <SignUp />
+        <Login />
       </BrowserRouter>
     )
-    const next = screen.getByRole('button', {name: /next/i})
-    expect(next).toBeInTheDocument()
+    const login = screen.getByRole('button', {name: /login/i})
+    expect(login).toBeInTheDocument()
   })
-})
+}) 
