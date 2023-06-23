@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import '../styles/Login.css'
+import users from "../MockUsers";
 
-const Login = () => {
+import "../styles/Login.css";
+
+const Login = ({ setCurrentUser }) => {
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
   });
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,13 +22,22 @@ const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login submission here
-    console.log(formValues);
+
+    const user = users.find(
+      (user) =>
+        user.email === formValues.email && user.password === formValues.password
+    );
+    if (!user || !user.id) {
+      alert("Invalid Credentials");
+    } else {
+      setCurrentUser(user);
+      navigate(`/readme/${user.id}`);
+    }
   };
 
-    const handleGoHome = () => {
-      navigate("/");
-    };
+  const handleGoHome = () => {
+    navigate("/");
+  };
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
