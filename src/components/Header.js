@@ -1,10 +1,8 @@
-import React from 'react'
+import React from "react";
 import { Navbar, NavbarBrand, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
-
 const Header = () => {
-
   return (
     <div className="header-container">
       <Navbar>
@@ -12,12 +10,16 @@ const Header = () => {
           <img src="../logo.png" alt="logo" className="logo" />
         </NavbarBrand>
         <div className="link-box">
-          <ul>Login</ul>
-          <ul>SignUp</ul>
+          <Button tag={Link} to="/signup" color="primary">
+            Sign Up
+          </Button>
+          <Button tag={Link} to="/login" color="secondary">
+            Login
+          </Button>
         </div>
       </Navbar>
     </div>
   );
-}
+};
 
-export default Header
+export default Header;
