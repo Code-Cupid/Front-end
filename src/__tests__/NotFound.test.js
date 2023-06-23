@@ -11,7 +11,7 @@ describe('<NotFound />', () => {
     )
   })
 
-  it('renders "Page not found', () => { 
+  it('renders Page not found', () => { 
     render(
       <BrowserRouter>
         <NotFound />
