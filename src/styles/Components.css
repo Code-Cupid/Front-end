@@ -6,8 +6,8 @@ header {
   color: white;
 }
 .logo {
-  height: 20%;
-  width: 20%;
+  height: 10%;
+  width: 10%;
   margin-left:0;
 }
 .link-box {
@@ -22,10 +22,8 @@ header {
   left: 0;
   bottom: 0;
   width: 100%;
-  color: white;
-  padding: 5px;
   text-align: center;
-  height: 38px;
+  color: white;
 }
 .cupid-coders {
   text-align: center;

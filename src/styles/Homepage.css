@@ -8,7 +8,7 @@ flex-direction: column;
   padding: 3%;
   font-family: 'Cupid';
   color: white;
-  display: center;
+  display: flex;
   align-items: center;
   justify-content: center;
   font-size: 120px;
@@ -16,5 +16,9 @@ flex-direction: column;
 .tagline {
   font-family: 'Cupid';
   color: white;
-  font-size: 50px
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10%;
 }

@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Signup from "./pages/SignUp";
 import Login from "./pages/Login";
 import ReadMeShow from "./pages/Show";
+import AboutUs from "./pages/AboutUs";
 
 import "./App.css";
 
@@ -20,7 +21,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <Navigation currentUser={currentUser}  setCurrentUser={setCurrentUser} />
+      <Navigation currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route
@@ -34,6 +35,7 @@ const App = () => {
             <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />
           }
         />
+        <Route path="/cupids" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap"; 
+import '../styles/Components.css'
 
 const Navigation = ({ currentUser, setCurrentUser }) => {
   const handleLogout = () => {
