@@ -13,7 +13,6 @@ import ReadMeShow from "./pages/Show";
 import "./App.css";
 
 import readmes from "./MockReadmes";
-import users from "./MockUsers";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -21,12 +20,12 @@ const App = () => {
   return (
     <>
       <Header />
-      <Navigation currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      <Navigation currentUser={currentUser}  setCurrentUser={setCurrentUser} />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route
           path="/readme/:id"
-          element={<ReadMeShow currentUser={currentUser} />}
+          element={<ReadMeShow currentUser={currentUser} readmes={readmes} />}
         />
         <Route path="/signup" element={<Signup />} />
         <Route

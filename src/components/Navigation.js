@@ -12,9 +12,6 @@ const Navigation = ({ currentUser, setCurrentUser }) => {
       {currentUser ? (
         <NavItem>
           <input type="button" value="Logout" onClick={handleLogout} />
-          {/* <NavLink to="/readme" className="nav-link">
-            (replace with another link)
-          </NavLink> */}
         </NavItem>
       ) : (
         <>

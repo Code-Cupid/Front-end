@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import readmes from "../MockReadmes";
 
-const ReadMeShow = ({ currentUser }) => {
+
+const ReadMeShow = ({ currentUser, readmes }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const readmeShow = readmes.find((readmeShow) => readmeShow.id === Number(id));
