@@ -27,7 +27,7 @@ const ReadMeShow = ({ currentUser, readmes }) => {
     )
       <div>
         <NavLink to={`/edit/${currentUser.id}`} className="nav-link">
-          Edit Cat Profile
+          Edit ReadMe Profile
         </NavLink>
       </div>
       </>

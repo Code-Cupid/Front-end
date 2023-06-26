@@ -25,7 +25,7 @@ const Edit = ({ readmes, updateUser}) => {
   const navigate = useNavigate()
   const handleSubmit = () => {
     updateUser(readmes, readmes.id)
-    navigate("/Show")
+    navigate("/readme/${id}")
   }
 
   return (
