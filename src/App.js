@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Signup from "./pages/SignUp";
 import Login from "./pages/Login";
 import ReadMeShow from "./pages/Show";
+import Edit from "./pages/Edit";
 
 import "./App.css";
 
@@ -16,6 +17,11 @@ import readmes from "./MockReadmes";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
+
+  const updateUser = (readmes, id) => {
+    console.log("readmes:", readmes)
+    console.log("id:", id)
+  };
 
   return (
     <>
@@ -28,6 +34,7 @@ const App = () => {
           element={<ReadMeShow currentUser={currentUser} readmes={readmes} />}
         />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/edit/:id" element={<Edit readmes={readmes} updateUser={updateUser} />}/>
         <Route
           path="/login"
           element={
