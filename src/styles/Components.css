@@ -12,7 +12,6 @@ header {
 }
 .link-box {
   justify-content: space-between;
-  flex-direction: column;
   color: white;
 }
 /* End of Header */
