@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Header from "./components/Header";
 import Navigation from "./components/Navigation";
 
 import Homepage from "./pages/Homepage";
@@ -20,7 +19,6 @@ const App = () => {
 
   return (
     <>
-      <Header />
       <Navigation currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Routes>
         <Route path="/" element={<Homepage />} />

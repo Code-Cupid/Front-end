@@ -1,5 +1,5 @@
 /* Header */
-header {
+.header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,9 +11,29 @@ header {
   margin-left:0;
 }
 .link-box {
-  justify-content: space-between;
+  justify-content: center;
   color: white;
 }
+.nav-link {
+  display: flex;
+  text-transform: uppercase;
+  cursor: pointer;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 5px;
+  gap: 5px;
+}
+.nav-item button {
+  padding: 0px 30px;  /* top-bottom, left-right */
+  font-size: 1em;
+}
+
 /* End of Header */
 
 /* Footer */
