@@ -11,7 +11,7 @@ const UserIndex = ({ readmes }) => {
             <p>{readme.name}</p>
             <p>Age: {readme.age}</p>
             <p>Gender: {readme.gender}</p>
-            <img src={readme.image} alt="Apartment" />
+            <img src={readme.image} alt="A handsome man" />
           </>
         )
       })}

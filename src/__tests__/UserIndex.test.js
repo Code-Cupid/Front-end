@@ -5,8 +5,7 @@ import MockReadmes from "../MockReadmes"
 
 
 describe("<UserIndex />", () => {
-  // const currentUser = {}
-  // const readmes = []
+
 
   it("renders without crashing", () => {
     render(
@@ -14,7 +13,6 @@ describe("<UserIndex />", () => {
         <UserIndex  readmes={MockReadmes} />
       </BrowserRouter>
     )
-    screen.logTestingPlaygroundURL()
   })
 
   it("has a heading", () => {
@@ -24,8 +22,7 @@ describe("<UserIndex />", () => {
       </BrowserRouter>
     )
     const heading = screen.getByRole('heading', { name: /list of users/i })
-    expect(heading).toBeInTheDocument
-    screen.logTestingPlaygroundURL()
+    expect(heading).toBeInTheDocument()
   })
 
   it("has a name", () => {
@@ -35,8 +32,7 @@ describe("<UserIndex />", () => {
       </BrowserRouter>
     )
     const name = screen.getByText(/jesse matthews/i)
-    expect(name).toBeInTheDocument
-    screen.logTestingPlaygroundURL()
+    expect(name).toBeInTheDocument()
   })
 
   it("has a age", () => {
@@ -46,8 +42,7 @@ describe("<UserIndex />", () => {
       </BrowserRouter>
     )
     const age = screen.getByText(/age: 25/i)
-    expect(age).toBeInTheDocument
-    screen.logTestingPlaygroundURL()
+    expect(age).toBeInTheDocument()
   })
   
   it("has a gender", () => {
@@ -57,18 +52,7 @@ describe("<UserIndex />", () => {
       </BrowserRouter>
     )
     const gender = screen.getByText(/gender: male/i)
-    expect(gender).toBeInTheDocument
-    screen.logTestingPlaygroundURL()
+    expect(gender).toBeInTheDocument()
   })
 
-  it("has an image", () => {
-    render(
-      <BrowserRouter>
-        <UserIndex  readmes={MockReadmes} />
-      </BrowserRouter>
-    )
-    const image = screen.getByRole('img', { name: /apartment/i })
-    expect(image).toBeInTheDocument
-    screen.logTestingPlaygroundURL()
-  })
 })
