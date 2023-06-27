@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, NavLink } from "react-router-dom";
 
 
 const ReadMeShow = ({ currentUser, readmes }) => {
@@ -13,17 +13,24 @@ const ReadMeShow = ({ currentUser, readmes }) => {
     }
   }, [currentUser, navigate]);
 
-  return (
+  return (<>
     currentUser && (
       <div class="readme-container">
         <h1>{readmeShow?.name}</h1>
         <img src={readmeShow?.image} alt={readmeShow?.image} />
         <p>Age: {readmeShow?.age} </p>
         <p>Gender:{readmeShow?.gender} </p>
+        <p>Gender Pref:{readmeShow?.gender_pref} </p>
         <p>Location:{readmeShow?.location} </p>
         <p>Favorite Programming Language:{readmeShow?.programming_lang} </p>
       </div>
     )
+      <div>
+        <NavLink to={`/edit/${currentUser.id}`} className="nav-link">
+          Edit ReadMe Profile
+        </NavLink>
+      </div>
+      </>
   );
 };
 

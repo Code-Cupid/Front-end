@@ -18,10 +18,20 @@ describe("<Show />", () => {
     render(
       <BrowserRouter>
         <Show currentUser={currentUser} readmes={readmes} />
-      </BrowserRouter> 
+      </BrowserRouter>
     )
     const gender = screen.getByText(/gender:/i)
     expect(gender).toBeInTheDocument()
+  })
+
+  it("renders with gender pref", () => {
+    render(
+      <BrowserRouter>
+        <Show currentUser={currentUser} readmes={readmes} />
+      </BrowserRouter>
+    )
+    const genderpref = screen.getByText(/gender pref:/i)
+    expect(genderpref).toBeInTheDocument()
   })
 
   it("renders with location", () => {
@@ -42,5 +52,15 @@ describe("<Show />", () => {
     )
     const language = screen.getByText(/favorite programming language:/i)
     expect(language).toBeInTheDocument()
+  })
+
+  it("renders with an edit navlink", () => {
+    render(
+      <BrowserRouter>
+        <Show currentUser={currentUser} readmes={readmes} />
+      </BrowserRouter>
+    )
+    screen.getByRole('link', {name: /edit readme profile/i})
+    expect(location).toBeDefined()
   })
 })

@@ -3,7 +3,6 @@ import "../styles/AboutUs.css";
 import CupidGang from "./CupidGang";
 import dog from '../assets/dog.png'
 
-// AccordionPanel component
 const AccordionPanel = ({
   title,
   content,
@@ -39,7 +38,6 @@ const AccordionPanel = ({
   );
 };
 
-// Accordion component
 const Accordion = ({ items }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -61,13 +59,11 @@ const Accordion = ({ items }) => {
   );
 };
 
-// AboutUs component
 const items = CupidGang.map((person) => ({
   title: person.name,
   content: `${person.name} is from ${person.location}. Their birthday is on ${person.birthday}. They prefer ${person.lang_pref}. About them: ${person.about}`,
-  imgSrc: dog, // Add relevant image sources
-  imgAlt: `${person.name}'s image`, // Add alt text for each person's image
-  // svg: <FontAwesomeIcon icon={faUser} className="accordion-icon" />, // Update this with the relevant svg for each person
+  imgSrc: dog,
+  imgAlt: `${person.name}'s image`,
 }));
 
 const AboutUs = () => {

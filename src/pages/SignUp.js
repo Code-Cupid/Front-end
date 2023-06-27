@@ -27,7 +27,7 @@ const navigate = useNavigate();
       [name]: value,
     }));
   };
-
+ 
   const handleReadmeChange = (e) => {
     const { name, value } = e.target;
     setFormReadme((prevFormReadme) => ({
@@ -46,7 +46,6 @@ const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
     console.log(formUser);
     console.log(formReadme);
   };

@@ -27,7 +27,6 @@ describe('<Login />', () => {
         <Login />
       </BrowserRouter>
     )
-    screen.logTestingPlaygroundURL()
     const email = screen.getByRole('textbox', {name: /email/i})
     expect(email).toBeInTheDocument()
   })
