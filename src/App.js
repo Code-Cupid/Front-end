@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Header from "./components/Header";
 import Navigation from "./components/Navigation";
 
 import Homepage from "./pages/Homepage";
@@ -10,6 +9,7 @@ import Signup from "./pages/SignUp";
 import Login from "./pages/Login";
 import ReadMeShow from "./pages/Show";
 import Edit from "./pages/Edit";
+import AboutUs from "./pages/AboutUs";
 
 import "./App.css";
 
@@ -25,8 +25,7 @@ const App = () => {
 
   return (
     <>
-      <Header />
-      <Navigation currentUser={currentUser}  setCurrentUser={setCurrentUser} />
+      <Navigation currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route
@@ -41,6 +40,7 @@ const App = () => {
             <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />
           }
         />
+        <Route path="/cupids" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
