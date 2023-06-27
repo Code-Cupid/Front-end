@@ -50,7 +50,6 @@ describe("<Show />", () => {
         <Show currentUser={currentUser} readmes={readmes} />
       </BrowserRouter>
     )
-    screen.logTestingPlaygroundURL()
     const language = screen.getByText(/favorite programming language:/i)
     expect(language).toBeInTheDocument()
   })
