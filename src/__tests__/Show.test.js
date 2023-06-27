@@ -18,7 +18,7 @@ describe("<Show />", () => {
     render(
       <BrowserRouter>
         <Show currentUser={currentUser} readmes={readmes} />
-      </BrowserRouter>
+      </BrowserRouter> 
     )
     const gender = screen.getByText(/gender:/i)
     expect(gender).toBeInTheDocument()
