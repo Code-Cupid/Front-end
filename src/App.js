@@ -8,18 +8,18 @@ import NotFound from "./pages/NotFound";
 import Signup from "./pages/SignUp";
 import Login from "./pages/Login";
 import ReadMeShow from "./pages/Show";
+import UserIndex from "./pages/UserIndex"
 
 import Edit from "./pages/Edit";
 
 import AboutUs from "./pages/AboutUs";
-
 
 import "./App.css";
 
 import readmes from "./MockReadmes";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(readmes);
 
   const updateUser = (readmes, id) => {
     console.log("readmes:", readmes)
@@ -31,6 +31,7 @@ const App = () => {
       <Navigation currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/userindex" element={<UserIndex readmes={readmes} />} />
         <Route
           path="/readme/:id"
           element={<ReadMeShow currentUser={currentUser} readmes={readmes} />}
