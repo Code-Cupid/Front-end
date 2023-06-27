@@ -71,5 +71,4 @@ describe("<UserIndex />", () => {
     expect(image).toBeInTheDocument
     screen.logTestingPlaygroundURL()
   })
-
 })
