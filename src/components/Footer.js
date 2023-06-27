@@ -8,7 +8,7 @@ const Footer = () => {
       <Navbar>
         <span className="copyright"> &copy;2023 Cupid </span>
         <NavItem className="nav-item">
-          <Link to="/meet-the-cupids">Meet the Cupids</Link>
+          <Link to="/cupids">Meet the Cupids</Link>
         </NavItem>
       </Navbar>
     </div>

@@ -1,24 +1,41 @@
 .home-container {
-margin: auto;
-width: 100%;
-flex-direction: column;
+  margin: auto;
+  width: 95%;
+  object-fit: contain;
+  position: relative; /* Needed for absolute positioning of child elements */
 }
+
 .CodeCupid {
-  margin-top: 3%;
-  padding: 3%;
+  position: absolute; /* Make it absolute to position over the hearts */
+  top: 30%; /* Adjust as needed */
+  left: 50%; /* Centering */
+  transform: translate(-50%, -50%); /* Centering */
   font-family: 'Cupid';
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 120px;
+  font-size: 16vw;
+  z-index: 10; /* Make it appear over the hearts */
 }
+
 .tagline {
+  position: absolute; /* Make it absolute to position over the hearts */
+  top: 70%; /* Adjust as needed */
+  left: 50%; /* Centering */
+  transform: translate(-50%, -50%); /* Centering */
   font-family: 'Cupid';
   color: white;
-  font-size: 50px;
+  font-size:8vw;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10%;
+  white-space: nowrap;
+  overflow-x: auto;
+  z-index: 10; /* Make it appear over the hearts */
+}
+
+.hearts {
+  display: flex;
+  position: relative;
 }
