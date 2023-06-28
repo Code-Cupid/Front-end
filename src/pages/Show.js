@@ -14,7 +14,7 @@ const ReadMeShow = ({ currentUser, readmes }) => {
   }, [currentUser, navigate]);
 
   return (<>
-    currentUser && (
+
       <div class="readme-container">
         <h1>{readmeShow?.name}</h1>
         <img src={readmeShow?.image} alt={readmeShow?.image} />
@@ -24,7 +24,7 @@ const ReadMeShow = ({ currentUser, readmes }) => {
         <p>Location:{readmeShow?.location} </p>
         <p>Favorite Programming Language:{readmeShow?.programming_lang} </p>
       </div>
-    )
+    
       <div>
         <NavLink to={`/edit/${currentUser.id}`} className="nav-link">
           Edit ReadMe Profile
