@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import '../styles/Signup.css'
 
-const Signup = () => {
+const Signup = ({ createUser, createReadme }) => {
   const [step, setStep] = useState(1);
   const [formUser, setFormUser] = useState({
     email: "",
@@ -18,6 +18,8 @@ const Signup = () => {
     programming_lang: "",
     image: "",
   });
+  const [readmeId, setReadmeId] = useState(null)
+
 const navigate = useNavigate();
 
   const handleUserChange = (e) => {
@@ -44,10 +46,36 @@ const navigate = useNavigate();
     setStep((prevStep) => prevStep - 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formUser);
-    console.log(formReadme);
+    const user = await createUser(formUser);
+    if (!user.error) {
+      const readme = await createUser(formUser) 
+      if (!readme.error) {
+        navigate(`/readme/$readme.id`)
+      } else {
+        alert(Error);
+      }
+      } else {
+        handleNext();
+      }
+      
+
+    // fetch(`${url}/:id`, {
+    //   body: JSON.stringify(formUser),
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   method: "POST"
+    // })
+    // .then((response => response.json())
+    // .then((payload) => {
+    //   localStorage.setItem('token', payload.token)
+    //   setCurrentUser(payload.user)
+    //   navigate('/')
+    // })
+    // .catch((errors) => console.log("User cannot be created", errors))
+    // )
   };
   const handleGoHome = () => {
     navigate("/");
