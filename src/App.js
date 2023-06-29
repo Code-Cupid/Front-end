@@ -28,12 +28,13 @@ const App = () => {
     }
   }, []);
 
-  const fetchReadmes = () => {
-    fetch(`${url}/readmes`)
+  const fetchReadmes = (userId) => {
+    fetch(`${url}/users/${userId}/readmes`)
       .then((response) => response.json())
       .then((readmes) => setReadmes(readmes))
       .catch((error) => console.log("error", error));
   };
+
 
   const fetchUsers = () => {
     fetch(`${url}/users`)
@@ -132,13 +133,13 @@ const App = () => {
       .catch((errors) => console.log("User delete errors:", errors));
   };
   const loginUser = async (user) => {
-    const response = await fetch(`${url}/users/sign_in`, {
-      body: JSON.stringify(user),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
+const response = await fetch(`${url}/login`, {
+  body: JSON.stringify(user),
+  headers: {
+    "Content-Type": "application/json",
+  },
+  method: "POST",
+});
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
