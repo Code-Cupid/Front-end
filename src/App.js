@@ -9,133 +9,164 @@ import Navigation from "./components/Navigation";
 import NotFound from "./pages/NotFound";
 import ReadMeShow from "./pages/Show";
 import Signup from "./pages/SignUp";
-import UserIndex from "./pages/UserIndex"
+import UserIndex from "./pages/UserIndex";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
-  const [readmes, setReadmes] = useState([])
-  const [users, setUsers] = useState([])
+  const [readmes, setReadmes] = useState([]);
+  const [users, setUsers] = useState([]);
 
+  const url = "http://localhost:3000";
 
-  const url = "http://localhost:3000"
-
-  
-    useEffect(() =>{
-      fetchReadmes()
-      fetchUsers()
-      const loggedInUser = localStorage.getItem('token') 
-      if (loggedInUser) {
-        const authUserId = +JSON.parse(atob(loggedInUser?.split(".")[1])).user_id
-        fetchUsers(authUserId)
-      }
-    }, [])
+  useEffect(() => {
+    fetchReadmes();
+    fetchUsers();
+    const loggedInUser = localStorage.getItem("token");
+    if (loggedInUser) {
+      const authUserId = +JSON.parse(atob(loggedInUser?.split(".")[1])).user_id;
+      fetchUser(authUserId);
+    }
+  }, []);
 
   const fetchReadmes = () => {
     fetch(`${url}/readmes`)
-      .then(response => response.json())
-      .then(payload => setReadmes(payload))
-      .catch((error) => console.log('error', error))
-  }
+      .then((response) => response.json())
+      .then((readmes) => setReadmes(readmes))
+      .catch((error) => console.log("error", error));
+  };
+
   const fetchUsers = () => {
-    fetch(`${url}/users/`)
-    .then(response => response.json())
-    .then(payload => setUsers(payload))
-    .catch(error => console.error('Error', error))
-  }
+    fetch(`${url}/users`)
+      .then((response) => response.json())
+      .then((users) => setUsers(users))
+      .catch((error) => console.error("Error", error));
+  };
+
   const fetchUser = (id) => {
     fetch(`${url}/users/${id}`)
-    .then(response => response.json())
-    .then(payload => setCurrentUser(payload))
-    .catch(error => console.error('Error', error))
-  }
-  const createUser = (user) => {
-    fetch(`${url}/users`, {
+      .then((response) => response.json())
+      .then((user) => setCurrentUser(user))
+      .catch((error) => console.error("Error", error));
+  };
+
+  const createUser = async (user) => {
+    const response = await fetch(`${url}/users`, {
       body: JSON.stringify(user),
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      method: "POST"
-    })
-      .then((response) => response.json())
-      .then((payload) => fetchUsers(payload))
-      .catch((errors) => console.log("User create errors:", errors))
-  }
+      method: "POST",
+    });
 
-  const createReadme = (readme) => {
-    fetch(`${url}/readmes`, {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      const data = await response.json();
+      fetchUsers();
+      return data;
+    }
+  };
+
+  const createReadme = async (readme) => {
+    const response = await fetch(`${url}/readmes`, {
       body: JSON.stringify(readme),
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      method: "POST"
-    })
-      .then((response) => response.json())
-      .then((payload) => fetchReadmes(payload))
-      .catch((errors) => console.log("ReadMes create errors:", errors))
-  }
+      method: "POST",
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      const data = await response.json();
+      fetchReadmes();
+      return data;
+    }
+  };
+
   const updateUser = (id, data) => {
-    fetch(`${url}/user/${id}`, {
+    fetch(`${url}/users/${id}`, {
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      method: "PATCH"
+      method: "PATCH",
     })
       .then((response) => response.json())
-      .then((payload) => fetchUsers(payload))
-      .catch((errors) => console.log("update errors:", errors))
-  }
+      .then(() => fetchUsers())
+      .catch((errors) => console.log("update errors:", errors));
+  };
 
   const updateReadme = (id, data) => {
     fetch(`${url}/readmes/${id}`, {
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      method: "PATCH"
+      method: "PATCH",
     })
       .then((response) => response.json())
-      .then((payload) => fetchReadmes(payload))
-      .catch((errors) => console.log("ReadMe update errors:", errors))
-  }
+      .then(() => fetchReadmes())
+      .catch((errors) => console.log("ReadMe update errors:", errors));
+  };
+
   const deleteReadMes = (id) => {
     fetch(`${url}/readmes/${id}`, {
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      method: "DELETE"
+      method: "DELETE",
     })
       .then((response) => response.json())
-      .then((payload) => fetchReadmes(payload))
-      .catch((errors) => console.log("ReadMe delete errors:", errors))
-  }
+      .then(() => fetchReadmes())
+      .catch((errors) => console.log("ReadMe delete errors:", errors));
+  };
 
   const deleteUser = (id) => {
     fetch(`${url}/users/${id}`, {
-      method: "DELETE"
+      method: "DELETE",
     })
       .then((response) => response.json())
-      .then((payload) => fetchUsers(payload))
-      .catch((errors) => console.log("User delete errors:", errors))
-  }
-const logout = () => {
-  setCurrentUser(null)
-  localStorage.removeItem('token')
-}
+      .then(() => fetchUsers())
+      .catch((errors) => console.log("User delete errors:", errors));
+  };
+
+  const logout = () => {
+    setCurrentUser(null);
+    localStorage.removeItem("token");
+  };
 
   return (
     <>
-      <Navigation currentUser={currentUser} setCurrentUser={setCurrentUser} logout = {logout}/>
+      <Navigation
+        currentUser={currentUser}
+        setCurrentUser={setCurrentUser}
+        logout={logout}
+      />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/userindex" element={<UserIndex users={users} readmes={readmes} />} />
+        <Route
+          path="/userindex"
+          element={<UserIndex users={users} readmes={readmes} />}
+        />
         <Route
           path="/readme/:id"
           element={<ReadMeShow currentUser={currentUser} readmes={readmes} />}
         />
-        <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser} createUser={createUser} createReadme={createReadme} /> }/>
-        <Route path="/edit/:id" 
-        element={<Edit readmes={readmes} updateReadme={updateReadme} />}
+        <Route
+          path="/signup"
+          element={
+            <Signup
+              setCurrentUser={setCurrentUser}
+              createUser={createUser}
+              createReadme={createReadme}
+            />
+          }
+        />
+        <Route
+          path="/edit/:id"
+          element={<Edit readmes={readmes} updateReadme={updateReadme} />}
         />
         <Route
           path="/login"
@@ -145,11 +176,20 @@ const logout = () => {
         />
         <Route path="/cupids" element={<AboutUs />} />
 
-          {currentUser && (
-            <Route path ='/readme/:id' 
-            element={<ReadMeShow currentUser = {currentUser} readmes={readmes} deleteReadMes={deleteReadMes} updateUser={updateUser} deleteUser={deleteUser}/>}
-            />
-            )}
+        {currentUser && (
+          <Route
+            path="/readme/:id"
+            element={
+              <ReadMeShow
+                currentUser={currentUser}
+                readmes={readmes}
+                deleteReadMes={deleteReadMes}
+                updateUser={updateUser}
+                deleteUser={deleteUser}
+              />
+            }
+          />
+        )}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

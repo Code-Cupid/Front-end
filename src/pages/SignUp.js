@@ -15,12 +15,11 @@ const Signup = ({ createUser, createReadme }) => {
     gender: "",
     gender_pref: "",
     location: "",
-    programming_lang: "",
+    programming_language: "",
     image: "",
   });
-  const [readmeId, setReadmeId] = useState(null)
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleUserChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +28,7 @@ const navigate = useNavigate();
       [name]: value,
     }));
   };
- 
+
   const handleReadmeChange = (e) => {
     const { name, value } = e.target;
     setFormReadme((prevFormReadme) => ({
@@ -46,42 +45,61 @@ const navigate = useNavigate();
     setStep((prevStep) => prevStep - 1);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const user = await createUser(formUser);
-    if (!user.error) {
-      const readme = await createUser(formUser) 
-      if (!readme.error) {
-        navigate(`/readme/$readme.id`)
-      } else {
-        alert(Error);
-      }
-      } else {
-        handleNext();
-      }
-      
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // fetch(`${url}/:id`, {
-    //   body: JSON.stringify(formUser),
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   method: "POST"
-    // })
-    // .then((response => response.json())
-    // .then((payload) => {
-    //   localStorage.setItem('token', payload.token)
-    //   setCurrentUser(payload.user)
-    //   navigate('/')
-    // })
-    // .catch((errors) => console.log("User cannot be created", errors))
-    // )
+  const userData = {
+    user: {
+      email: formUser.email,
+      password: formUser.password,
+    },
   };
+
+  const readmeData = {
+    readme: {
+      name: formReadme.name,
+      age: formReadme.age,
+      gender: formReadme.gender,
+      gender_pref: formReadme.gender_pref,
+      location: formReadme.location,
+      programming_language: formReadme.programming_language,
+      image: formReadme.image,
+    },
+  };
+
+  try {
+    const userResponse = await fetch("http://localhost:3000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...userData,
+        ...readmeData,
+      }),
+    });
+
+    if (!userResponse.ok) {
+      throw new Error("HTTP error " + userResponse.status);
+    }
+
+    const userJson = await userResponse.json();
+
+    if (userJson.errors) {
+      alert("Error creating user");
+    } else {
+      navigate(`/readme/${userJson.readme.id}`);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
   const handleGoHome = () => {
     navigate("/");
   };
-return (
-  <form className="multi-step-form">
+  return (
+    <form className="multi-step-form">
       {step === 1 && (
         <div>
           <h3 className="step-title">User Information</h3>
@@ -190,9 +208,9 @@ return (
             </label>
             <input
               type="text"
-              name="programming_lang"
+              name="programming_language"
               id="programming_lang"
-              value={formReadme.programming_lang}
+              value={formReadme.programming_language}
               onChange={handleReadmeChange}
               required
             />
@@ -218,7 +236,7 @@ return (
           </div>
         </div>
       )}
-  </form>
-);
+    </form>
+  );
 };
 export default Signup;
