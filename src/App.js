@@ -131,10 +131,35 @@ const App = () => {
       .then(() => fetchUsers())
       .catch((errors) => console.log("User delete errors:", errors));
   };
+  const loginUser = async (user) => {
+    const response = await fetch(`${url}/users/sign_in`, {
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
 
-  const logout = () => {
-    setCurrentUser(null);
-    localStorage.removeItem("token");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+      fetchUser(data.user_id);
+    }
+  };
+
+  const logoutUser = async () => {
+    const response = await fetch(`${url}/users/sign_out`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      setCurrentUser(null);
+      localStorage.removeItem("token");
+    }
   };
 
   return (
@@ -142,7 +167,7 @@ const App = () => {
       <Navigation
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
-        logout={logout}
+        logoutUser={logoutUser}
       />
       <Routes>
         <Route path="/" element={<Homepage />} />
@@ -171,7 +196,11 @@ const App = () => {
         <Route
           path="/login"
           element={
-            <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />
+            <Login
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+              loginUser={loginUser}
+            />
           }
         />
         <Route path="/cupids" element={<AboutUs />} />
@@ -195,5 +224,4 @@ const App = () => {
     </>
   );
 };
-
 export default App;
