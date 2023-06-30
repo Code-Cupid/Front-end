@@ -1,37 +1,51 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
 
 
-const ReadMeShow = ({ currentUser, readmes }) => {
+const ReadMeShow = ({ currentUser }) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const readmeShow = readmes.find((readmeShow) => readmeShow.id === Number(id));
+  const [readme, setReadme] = useState(null);
 
   useEffect(() => {
     if (!currentUser) {
       navigate("/login");
+    } else {
+      fetch(`http://localhost:3001/readme/${id}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((json) => setReadme(json))
+        .catch((error) => console.error("Error:", error));
     }
-  }, [currentUser, navigate]);
+  }, [currentUser, id, navigate]);
 
-  return (<>
+  if (!readme) {
+    return "Loading...";
+  }
 
-      <div class="readme-container">
-        <h1>{readmeShow?.name}</h1>
-        <img src={readmeShow?.image} alt={readmeShow?.image} />
-        <p>Age: {readmeShow?.age} </p>
-        <p>Gender:{readmeShow?.gender} </p>
-        <p>Gender Pref:{readmeShow?.gender_pref} </p>
-        <p>Location:{readmeShow?.location} </p>
-        <p>Favorite Programming Language:{readmeShow?.programming_lang} </p>
-      </div>
-    
-      <div>
-        <NavLink to={`/edit/${currentUser.id}`} className="nav-link">
-          Edit ReadMe Profile
-        </NavLink>
-      </div>
-      </>
-  );
-};
+return (
+  <>
+    <div class="readme-container">
+      <h1>{readme?.name}</h1>
+      <img src={readme?.image} alt={readme?.image} />
+      <p>Age: {readme?.age} </p>
+      <p>Gender:{readme?.gender} </p>
+      <p>Gender Preference:{readme?.gender_preference} </p>
+      <p>Location:{readme?.location} </p>
+      <p>Favorite Programming Language:{readme?.programming_language} </p>
+    </div>
+
+    <div>
+      <NavLink to={`/edit/${currentUser.id}`} className="nav-link">
+        Edit ReadMe Profile
+      </NavLink>
+    </div>
+  </>
+);
+}
 
 export default ReadMeShow;

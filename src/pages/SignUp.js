@@ -13,7 +13,7 @@ const Signup = ({ createUser, createReadme }) => {
     name: "",
     age: "",
     gender: "",
-    gender_pref: "",
+    gender_preference: "",
     location: "",
     programming_language: "",
     image: "",
@@ -60,7 +60,7 @@ const handleSubmit = async (e) => {
       name: formReadme.name,
       age: formReadme.age,
       gender: formReadme.gender,
-      gender_pref: formReadme.gender_pref,
+      gender_preference: formReadme.gender_preference,
       location: formReadme.location,
       programming_language: formReadme.programming_language,
       image: formReadme.image,
@@ -88,7 +88,7 @@ const handleSubmit = async (e) => {
     if (userJson.errors) {
       alert("Error creating user");
     } else {
-      navigate(`/readme/${userJson.readme.id}`);
+      navigate("/");
     }
   } catch (error) {
     console.error("Error:", error);
@@ -177,11 +177,11 @@ const handleSubmit = async (e) => {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="gender_pref">Gender Preference</label>
+            <label htmlFor="gender_preference">Gender Preference</label>
             <select
-              name="gender_pref"
-              id="gender_pref"
-              value={formReadme.gender_pref}
+              name="gender_preference"
+              id="gender_preference"
+              value={formReadme.gender_preference}
               onChange={handleReadmeChange}
               required
             >
