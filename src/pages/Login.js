@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import users from "../MockUsers";
-
 import "../styles/Login.css";
 
-const Login = ({ setCurrentUser }) => {
+const Login = ({ setCurrentUser, loginUser }) => {
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
@@ -20,18 +18,18 @@ const Login = ({ setCurrentUser }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user = users.find(
-      (user) =>
-        user.email === formValues.email && user.password === formValues.password
-    );
-    if (!user || !user.id) {
+    try {
+      const user = await loginUser(formValues);
+      if (user) {
+        setCurrentUser(user);
+        navigate(`/readme/${user.id}`);
+      }
+    } catch (error) {
+      console.error(error);
       alert("Invalid Credentials");
-    } else {
-      setCurrentUser(user);
-      navigate(`/readme/${user.id}`);
     }
   };
 

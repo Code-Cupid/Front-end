@@ -1,21 +1,22 @@
 import { render, screen } from "@testing-library/react"
 import { BrowserRouter } from 'react-router-dom'
-import Homepage from "../pages/Homepage"
-import 'jest-canvas-mock';
+import Card from "../components/Card"
 
-describe('<Homepage />', () => {
+
+describe('<Card />', () => {
   it("renders without crashing", () => {
     render(
       <BrowserRouter>
-        <Homepage />
+        <Card />
       </BrowserRouter>
     )
+    screen.logTestingPlaygroundURL()
   })
 
   it('renders with a heading', () => { 
     render(
       <BrowserRouter>
-        <Homepage />
+        <Card />
       </BrowserRouter>
     )
     const header = screen.getByRole('heading', {
@@ -27,7 +28,7 @@ describe('<Homepage />', () => {
   it('renders with a footer', () => { 
     render(
       <BrowserRouter>
-        <Homepage />
+        <Card />
       </BrowserRouter>
     )
     const footer = screen.getByText(/©2023 cupid/i)

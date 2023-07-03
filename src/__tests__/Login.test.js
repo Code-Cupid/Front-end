@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react"
+import { render, screen, fireEvent } from "@testing-library/react"
 import { BrowserRouter } from 'react-router-dom'
 import Login from "../pages/Login"
 
@@ -60,4 +60,28 @@ describe('<Login />', () => {
     const login = screen.getByRole('button', {name: /login/i})
     expect(login).toBeInTheDocument()
   })
-}) 
+
+  it('submits the form when the login button is clicked', () => {
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    )
+
+    const loginUser = jest.fn()
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const loginButton = screen.getByRole('button', {name: /login/i})
+
+    fireEvent.change(emailInput, {target: {value: 'test@example.com'}})
+    fireEvent.change(passwordInput, {target: {value: 'password123'}})
+
+    fireEvent.click(loginButton)
+
+    expect(loginUser).toHaveBeenCalledWith({
+      email: 'test@example.com',
+      password: 'password123',
+    })
+  })
+})
