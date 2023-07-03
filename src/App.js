@@ -49,7 +49,7 @@ const App = () => {
       .then((user) => setCurrentUser(user))
       .catch((error) => console.error("Error", error));
   };
-
+ 
   const createUser = async (user) => {
     const response = await fetch(`${url}/users`, {
       body: JSON.stringify(user),
