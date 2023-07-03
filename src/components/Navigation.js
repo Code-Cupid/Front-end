@@ -8,6 +8,7 @@ const Navigation = ({ currentUser, setCurrentUser }) => {
 
   const handleLogout = () => {
     setCurrentUser(null);
+    navigate('/')
   };
 
   const handleNavigation = (path) => {
@@ -24,7 +25,8 @@ const Navigation = ({ currentUser, setCurrentUser }) => {
       <Nav className="nav">
         {currentUser ? (
           <NavItem className="nav-item">
-            <input type="button" value="Logout" onClick={handleLogout} />
+            <button onClick={() => handleLogout()}>Logout</button>
+            <button onClick={() => handleNavigation("/userindex")}>Other Users</button>
           </NavItem>
         ) : (
           <NavItem className="nav-item">
