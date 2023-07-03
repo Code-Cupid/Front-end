@@ -141,19 +141,19 @@ const App = () => {
     "Accept": 'application/json'
   },
   method: "POST",
-})
-.then(response => {
-  if(!response.ok) {
-    throw Error(response.statusText)
+  })
+  .then(response => {
+    if(!response.ok) {
+      throw Error(response.statusText)
+    }
+    localStorage.setItem("token", response.headers.get("Authorization"))
+    return response.json()
+  })
+  .then(payload => {
+    setCurrentUser(payload)
+  })
+  .catch(error => console.log("login errors: ", error))
   }
-  localStorage.setItem("token", response.headers.get("Authorization"))
-  return response.json()
-})
-.then(payload => {
-  setCurrentUser(payload)
-})
-.catch(error => console.log("login errors: ", error))
-}
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

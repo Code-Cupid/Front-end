@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import '../styles/Signup.css'
 
 const Signup = ({ createUser, createReadme }) => {
-  // const [step, setStep] = useState(1);
-  // const [formUser, setFormUser] = useState({
-  //   email: "",
-  //   password: "",
-  // });
+  const [step, setStep] = useState(1);
+  const [formUser, setFormUser] = useState({
+    email: "",
+    password: "",
+  });
   // const [formReadme, setFormReadme] = useState({
   //   name: "",
   //   age: "",
@@ -21,23 +21,24 @@ const Signup = ({ createUser, createReadme }) => {
 
   const navigate = useNavigate();
 
-  // const handleUserChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormUser((prevFormUser) => ({
-  //     ...prevFormUser,
-  //     [name]: value,
-  //   }));
-  // };
-
-  const handleReadmeChange = (e) => {
+  const handleUserChange = (e) => {
     const { name, value } = e.target;
-    setFormReadme((prevFormReadme) => ({
-      ...prevFormReadme,
+    setFormUser((prevFormUser) => ({
+      ...prevFormUser,
       [name]: value,
     }));
   };
 
+  // const handleReadmeChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormReadme((prevFormReadme) => ({
+  //     ...prevFormReadme,
+  //     [name]: value,
+  //   }));
+  // };
+
   const handleNext = () => {
+    
     setStep((prevStep) => prevStep + 1);
   };
 
@@ -45,55 +46,29 @@ const Signup = ({ createUser, createReadme }) => {
     setStep((prevStep) => prevStep - 1);
   };
 
-const handleSubmit = async (e) => {
+const handleSubmit = (e) => {
   e.preventDefault();
-
-  // const userData = {
-  //   user: {
-  //     email: formUser.email,
-  //     password: formUser.password,
-  //   },
-  // };
-
-  const readmeData = {
-    readme: {
-      name: formReadme.name,
-      age: formReadme.age,
-      gender: formReadme.gender,
-      gender_preference: formReadme.gender_preference,
-      location: formReadme.location,
-      programming_language: formReadme.programming_language,
-      image: formReadme.image,
+  createUser(newUser)
+  const userData = {
+    user: {
+      email: formUser.email,
+      password: formUser.password,
     },
   };
 
-//   try {
-//     const userResponse = await fetch("http://localhost:3000/signup", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         ...userData,
-//         ...readmeData,
-//       }),
-//     });
+  // const readmeData = {
+  //   readme: {
+  //     name: formReadme.name,
+  //     age: formReadme.age,
+  //     gender: formReadme.gender,
+  //     gender_preference: formReadme.gender_preference,
+  //     location: formReadme.location,
+  //     programming_language: formReadme.programming_language,
+  //     image: formReadme.image,
+  //   },
+  // };
 
-//     if (!userResponse.ok) {
-//       throw new Error("HTTP error " + userResponse.status);
-//     }
 
-//     const userJson = await userResponse.json();
-
-//     if (userJson.errors) {
-//       alert("Error creating user");
-//     } else {
-//       navigate("/");
-//     }
-//   } catch (error) {
-//     console.error("Error:", error);
-//   }
-// };
 
   const handleGoHome = () => {
     navigate("/");
