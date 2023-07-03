@@ -29,7 +29,7 @@ const App = () => {
   }, []);
 
   const fetchReadmes = (userId) => {
-    fetch(`${url}/users/${userId}/readmes`)
+    fetch(`${url}/readmes`)
       .then((response) => response.json())
       .then((readmes) => setReadmes(readmes))
       .catch((error) => console.log("error", error));
@@ -51,7 +51,7 @@ const App = () => {
   };
 
   const createUser = async (user) => {
-    const response = await fetch(`${url}/users`, {
+    const response = await fetch(`${url}/signup`, {
       body: JSON.stringify(user),
       headers: {
         "Content-Type": "application/json",

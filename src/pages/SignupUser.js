@@ -21,6 +21,11 @@ const SignupUser = ({ setUserId, handleNext }) => {
 
     try {
       // Sending user data
+      console.log(
+        JSON.stringify({
+          ...formUser,
+        })
+      );
       const userResponse = await fetch("http://localhost:3000/signup", {
         method: "POST",
         headers: {
