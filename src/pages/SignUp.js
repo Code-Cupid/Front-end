@@ -4,30 +4,30 @@ import { useNavigate } from "react-router-dom";
 import '../styles/Signup.css'
 
 const Signup = ({ createUser, createReadme }) => {
-  const [step, setStep] = useState(1);
-  const [formUser, setFormUser] = useState({
-    email: "",
-    password: "",
-  });
-  const [formReadme, setFormReadme] = useState({
-    name: "",
-    age: "",
-    gender: "",
-    gender_preference: "",
-    location: "",
-    programming_language: "",
-    image: "",
-  });
+  // const [step, setStep] = useState(1);
+  // const [formUser, setFormUser] = useState({
+  //   email: "",
+  //   password: "",
+  // });
+  // const [formReadme, setFormReadme] = useState({
+  //   name: "",
+  //   age: "",
+  //   gender: "",
+  //   gender_preference: "",
+  //   location: "",
+  //   programming_language: "",
+  //   image: "",
+  };
 
   const navigate = useNavigate();
 
-  const handleUserChange = (e) => {
-    const { name, value } = e.target;
-    setFormUser((prevFormUser) => ({
-      ...prevFormUser,
-      [name]: value,
-    }));
-  };
+  // const handleUserChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormUser((prevFormUser) => ({
+  //     ...prevFormUser,
+  //     [name]: value,
+  //   }));
+  // };
 
   const handleReadmeChange = (e) => {
     const { name, value } = e.target;
@@ -48,12 +48,12 @@ const Signup = ({ createUser, createReadme }) => {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const userData = {
-    user: {
-      email: formUser.email,
-      password: formUser.password,
-    },
-  };
+  // const userData = {
+  //   user: {
+  //     email: formUser.email,
+  //     password: formUser.password,
+  //   },
+  // };
 
   const readmeData = {
     readme: {
@@ -67,33 +67,33 @@ const handleSubmit = async (e) => {
     },
   };
 
-  try {
-    const userResponse = await fetch("http://localhost:3000/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...userData,
-        ...readmeData,
-      }),
-    });
+//   try {
+//     const userResponse = await fetch("http://localhost:3000/signup", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         ...userData,
+//         ...readmeData,
+//       }),
+//     });
 
-    if (!userResponse.ok) {
-      throw new Error("HTTP error " + userResponse.status);
-    }
+//     if (!userResponse.ok) {
+//       throw new Error("HTTP error " + userResponse.status);
+//     }
 
-    const userJson = await userResponse.json();
+//     const userJson = await userResponse.json();
 
-    if (userJson.errors) {
-      alert("Error creating user");
-    } else {
-      navigate("/");
-    }
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
+//     if (userJson.errors) {
+//       alert("Error creating user");
+//     } else {
+//       navigate("/");
+//     }
+//   } catch (error) {
+//     console.error("Error:", error);
+//   }
+// };
 
   const handleGoHome = () => {
     navigate("/");
