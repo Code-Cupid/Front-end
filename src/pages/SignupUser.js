@@ -1,8 +1,7 @@
-// SignupUser.js
 import React, { useState } from "react";
 import "../styles/Signup.css";
 
-const SignupUser = ({ createUser, goToNextStep }) => {
+const SignupUser = ({ setUserId, handleNext }) => {
   const [formUser, setFormUser] = useState({
     email: "",
     password: "",
@@ -16,36 +15,35 @@ const SignupUser = ({ createUser, goToNextStep }) => {
     }));
   };
 
-  const handleNext = async (e) => {
-    const userData = {
-      email: formUser.email,
-      password: formUser.password,
-    };
+  const handleLocalNext = async (e) => {
+    e.preventDefault();
+    handleNext(e);
 
     try {
+      // Sending user data
       const userResponse = await fetch("http://localhost:3000/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify({
+          ...formUser
+        }),
       });
 
       if (!userResponse.ok) {
-        throw new Error("HTTP error " + userResponse.status);
+        throw new Error(
+          `HTTP error while creating user! status: ${userResponse.status}`
+        );
       }
 
-      const userJson = await userResponse.json();
-
-      if (userJson.errors) {
-        alert("Error creating user");
-        return;
-      }
-
-      createUser(userJson);
-      goToNextStep();
+      const userResult = await userResponse.json();
+      setUserId(userResult.id); // Assuming setUserData is a function to lift the state up
     } catch (error) {
-      console.error("Error:", error);
+      console.error("An error occurred while trying to create a user.", error);
+      alert(
+        "An error occurred while trying to create a user. Please try again."
+      );
     }
   };
 
@@ -74,7 +72,7 @@ const SignupUser = ({ createUser, goToNextStep }) => {
           required
         />
       </div>
-      <button type="button" onClick={handleNext}>
+      <button type="button" onClick={handleLocalNext}>
         Next
       </button>
     </div>

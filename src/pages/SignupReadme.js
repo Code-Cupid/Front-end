@@ -1,8 +1,10 @@
 // SignupReadme.js
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Signup.css";
 
-const SignupReadme = ({ createReadme, goToPrevStep, onSubmit }) => {
+const SignupReadme = ({ handlePrevious, onSubmit, userId }) => {
+  // Assuming userId is passed as props
   const [formReadme, setFormReadme] = useState({
     name: "",
     age: "",
@@ -13,6 +15,8 @@ const SignupReadme = ({ createReadme, goToPrevStep, onSubmit }) => {
     image: "",
   });
 
+  const navigate = useNavigate();
+
   const handleReadmeChange = (e) => {
     const { name, value } = e.target;
     setFormReadme((prevFormReadme) => ({
@@ -21,11 +25,44 @@ const SignupReadme = ({ createReadme, goToPrevStep, onSubmit }) => {
     }));
   };
 
- const handleSubmit = async (e) => {
-   e.preventDefault();
-   onSubmit(formReadme); // Pass formReadme data to parent's onSubmit
- };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    onSubmit(e);
 
+    try {
+      // Sending readme data
+      const readmeResponse = await fetch("http://localhost:3000/readmes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: userId, // user's ID is needed when creating a readme
+          ...formReadme, // using formReadme state instead of readmeData
+        }),
+      });
+      
+
+      if (!readmeResponse.ok) {
+        throw new Error(
+          `HTTP error while creating readme! status: ${readmeResponse.status}`
+        );
+      }
+
+      const readmeResult = await readmeResponse.json(); //this is needed to use the data from the server's response (like editing)
+
+      // redirect to homepage if successful after submitting
+      navigate("/");// Redirect to the homepage
+    } catch (error) {
+      console.error(
+        "An error occurred while trying to create a readme.",
+        error
+      );
+      alert(
+        "An error occurred while trying to create a readme. Please try again."
+      );
+    }
+  };
   return (
     <form className="multi-step-form" onSubmit={handleSubmit}>
       <div>
@@ -34,7 +71,7 @@ const SignupReadme = ({ createReadme, goToPrevStep, onSubmit }) => {
         <div className="form-group">
           <label htmlFor="name">Name</label>
           <input
-            type="text"
+            type="string"
             name="name"
             id="name"
             value={formReadme.name}
@@ -85,7 +122,7 @@ const SignupReadme = ({ createReadme, goToPrevStep, onSubmit }) => {
         <div className="form-group">
           <label htmlFor="location">Location</label>
           <input
-            type="text"
+            type="string"
             name="location"
             id="location"
             value={formReadme.location}
@@ -118,7 +155,7 @@ const SignupReadme = ({ createReadme, goToPrevStep, onSubmit }) => {
           />
         </div>
         <div className="bs-button">
-          <button type="button" onClick={goToPrevStep}>
+          <button type="button" onClick={handlePrevious}>
             Go Back
           </button>
           <button type="submit">Submit</button>
