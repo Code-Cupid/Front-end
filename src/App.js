@@ -7,20 +7,20 @@ import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import Navigation from "./components/Navigation";
 import NotFound from "./pages/NotFound";
-// import ReadMeShow from "./pages/Show";
+import ReadMeShow from "./pages/Show";
 import Signup from "./pages/SignUp";
-// import UserIndex from "./pages/UserIndex";
+import UserIndex from "./pages/UserIndex";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [readmes, setReadmes] = useState([]);
-  // const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
   const url = "http://localhost:3000";
 
   useEffect(() => {
     fetchReadmes();
-    // fetchUsers();
+    fetchUsers();
     const loggedInUser = localStorage.getItem("token");
     if (loggedInUser) {
       const authUserId = +JSON.parse(atob(loggedInUser?.split(".")[1])).user_id;
@@ -35,40 +35,67 @@ const App = () => {
       .catch((error) => console.log("error", error));
   };
 
+  const fetchUsers = () => {
+    fetch(`${url}/users`)
+      .then((response) => response.json())
+      .then((users) => setUsers(users))
+      .catch((error) => console.error("Error", error));
+  };
 
-  const createUser = (user) => {
-    fetch(`${url}/signup`, {
+  const fetchUser = (id) => {
+    fetch(`${url}/users/${id}`)
+      .then((response) => response.json())
+      .then((user) => setCurrentUser(user))
+      .catch((error) => console.error("Error", error));
+  };
+ 
+  const createUser = async (user) => {
+    const response = await fetch(`${url}/users`, {
       body: JSON.stringify(user),
       headers: {
         "Content-Type": "application/json",
-        "Accept": 'application/json'
       },
       method: "POST",
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw Error(response.statusText)
-      }
-      localStorage.setItem("token", response.headers.get("Authorization"))
-      return response.json()
-    })
-    .then(payload => {
-      setCurrentUser(payload)
-    })
-    .catch(error => console.log("login errors: ", error))
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      const data = await response.json();
+      fetchUsers();
+      return data;
+    }
   };
-  
-  const createReadme = (readme) => {
-    fetch(`${url}/readmes`, {
+
+  const createReadme = async (readme) => {
+    const response = await fetch(`${url}/readmes`, {
       body: JSON.stringify(readme),
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      const data = await response.json();
+      fetchReadmes();
+      return data;
+    }
+  };
+
+  const updateUser = (id, data) => {
+    fetch(`${url}/users/${id}`, {
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "PATCH",
     })
-    .then((response) => response.json())
-    .then((payload) => readApts())
-    .catch((errors) => console.log("Apartment create errors:", errors))
+      .then((response) => response.json())
+      .then(() => fetchUsers())
+      .catch((errors) => console.log("update errors:", errors));
   };
 
   const updateReadme = (id, data) => {
@@ -95,44 +122,58 @@ const App = () => {
       .then(() => fetchReadmes())
       .catch((errors) => console.log("ReadMe delete errors:", errors));
   };
-  // const fetchUsers = () => {
-  //   fetch(`${url}/users`)
-  //     .then((response) => response.json())
-  //     .then((users) => setUsers(users))
-  //     .catch((error) => console.error("Error", error));
-  // };
 
-  // const fetchUser = (id) => {
-  //   fetch(`${url}/users/${id}`)
-  //     .then((response) => response.json())
-  //     .then((user) => setCurrentUser(user))
-  //     .catch((error) => console.error("Error", error));
-  // };
+  const deleteUser = (id) => {
+    fetch(`${url}/users/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then(() => fetchUsers())
+      .catch((errors) => console.log("User delete errors:", errors));
+  };
+  const loginUser = async (user) => {
+const response = await fetch(`${url}/login`, {
+  body: JSON.stringify(user),
+  headers: {
+    "Content-Type": "application/json",
+  },
+  method: "POST",
+});
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+      fetchUser(data.user_id);
+    }
+  };
 
+  const logoutUser = async () => {
+    const response = await fetch(`${url}/users/sign_out`, {
+      method: "DELETE",
+    });
 
-  // const updateUser = (id, data) => {
-  //   fetch(`${url}/users/${id}`, {
-  //     body: JSON.stringify(data),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     method: "PATCH",
-  //   })
-  //     .then((response) => response.json())
-  //     .then(() => fetchUsers())
-  //     .catch((errors) => console.log("update errors:", errors));
-  // };
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      setCurrentUser(null);
+      localStorage.removeItem("token");
+    }
+  };
 
-
-  // const deleteUser = (id) => {
-  //   fetch(`${url}/users/${id}`, {
-  //     method: "DELETE",
-  //   })
-  //     .then((response) => response.json())
-  //     .then(() => fetchUsers())
-  //     .catch((errors) => console.log("User delete errors:", errors));
-  // };
+  const deleteReadMes = (id) => {
+    fetch(`${url}/readmes/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then(() => fetchReadmes())
+      .catch((errors) => console.log("ReadMe delete errors:", errors));
+  };
+ 
   const loginUser = (user) => {
     fetch(`${url}/login`, {
     body: JSON.stringify(user),
@@ -182,19 +223,15 @@ const App = () => {
   return (
     <>
       <Navigation
-        // currentUser={currentUser}
-        // setCurrentUser={setCurrentUser}
-        // logoutUser={logoutUser}
+        currentUser={currentUser}
+        setCurrentUser={setCurrentUser}
+        logoutUser={logoutUser}
       />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route
-          // path="/userindex"
-          // element={<UserIndex users={users} readmes={readmes} />}
-        />
-        {/* <Route
-          path="/readme/:id"
-          element={<ReadMeShow currentUser={currentUser} readmes={readmes} />}
+          path="/userindex"
+          element={<UserIndex users={users} readmes={readmes} />}
         />
         <Route
           path="/signup"
@@ -205,7 +242,21 @@ const App = () => {
               createReadme={createReadme}
             />
           }
-        /> */}
+        />
+        <Route
+          path="/edit/:id"
+          element={<Edit readmes={readmes} updateReadme={updateReadme} />}
+        />
+        <Route
+          path="/signup"
+          element={
+            <Signup
+              setCurrentUser={setCurrentUser}
+              createUser={createUser}
+              createReadme={createReadme}
+            />
+          }
+        />
         <Route
           path="/edit/:id"
           element={<Edit readmes={readmes} updateReadme={updateReadme} />}
@@ -222,8 +273,8 @@ const App = () => {
         /> */}
         <Route path="/cupids" element={<AboutUs />} />
 
-        {/* {currentUser && ( */}
-          {/* <Route
+        {currentUser && (
+          <Route
             path="/readme/:id"
             element={
               <ReadMeShow
@@ -234,8 +285,8 @@ const App = () => {
                 deleteUser={deleteUser}
               />
             }
-          /> */}
-        {/* )} */}
+          />
+        )}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

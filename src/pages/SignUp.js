@@ -9,15 +9,15 @@ const Signup = ({ createUser, createReadme }) => {
     email: "",
     password: "",
   });
-  // const [formReadme, setFormReadme] = useState({
-  //   name: "",
-  //   age: "",
-  //   gender: "",
-  //   gender_preference: "",
-  //   location: "",
-  //   programming_language: "",
-  //   image: "",
-  };
+  const [formReadme, setFormReadme] = useState({
+    name: "",
+    age: "",
+    gender: "",
+    gender_preference: "",
+    location: "",
+    programming_language: "",
+    image: "",
+  });
 
   const navigate = useNavigate();
 
@@ -29,13 +29,13 @@ const Signup = ({ createUser, createReadme }) => {
     }));
   };
 
-  // const handleReadmeChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormReadme((prevFormReadme) => ({
-  //     ...prevFormReadme,
-  //     [name]: value,
-  //   }));
-  // };
+  const handleReadmeChange = (e) => {
+    const { name, value } = e.target;
+    setFormReadme((prevFormReadme) => ({
+      ...prevFormReadme,
+      [name]: value,
+    }));
+  };
 
   const handleNext = () => {
     
@@ -56,19 +56,45 @@ const handleSubmit = (e) => {
     },
   };
 
-  // const readmeData = {
-  //   readme: {
-  //     name: formReadme.name,
-  //     age: formReadme.age,
-  //     gender: formReadme.gender,
-  //     gender_preference: formReadme.gender_preference,
-  //     location: formReadme.location,
-  //     programming_language: formReadme.programming_language,
-  //     image: formReadme.image,
-  //   },
-  // };
+  const readmeData = {
+    readme: {
+      name: formReadme.name,
+      age: formReadme.age,
+      gender: formReadme.gender,
+      gender_preference: formReadme.gender_preference,
+      location: formReadme.location,
+      programming_language: formReadme.programming_language,
+      image: formReadme.image,
+    },
+  };
 
+  try {
+    const userResponse = await fetch("http://localhost:3000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...userData,
+        ...readmeData,
+      }),
+    });
 
+    if (!userResponse.ok) {
+      throw new Error("HTTP error " + userResponse.status);
+    }
+
+    const userJson = await userResponse.json();
+
+    if (userJson.errors) {
+      alert("Error creating user");
+    } else {
+      navigate("/");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
 
   const handleGoHome = () => {
     navigate("/");

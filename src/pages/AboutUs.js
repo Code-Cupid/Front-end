@@ -1,78 +1,91 @@
-import React, { useState } from "react";
-import "../styles/AboutUs.css";
-import CupidGang from "./CupidGang";
-import dog from '../assets/dog.png'
+import React, { useState } from 'react';
+import {Carousel,CarouselItem,CarouselControl,CarouselIndicators} from 'reactstrap';
+import "../styles/AboutUs.css"
 
-const AccordionPanel = ({
-  title,
-  content,
-  imgSrc,
-  imgAlt,
-  isActive,
-  onToggle,
-}) => {
-  return (
-    <div className={`accordion-panel ${isActive ? "active" : ""}`}>
-      <h2 id={`${title}-heading`}>
-        <button
-          className="accordion-trigger"
-          aria-expanded={isActive}
-          onClick={onToggle}
-        >
-          <span className="accordion-title">{title}</span>
-          <svg aria-hidden="true" className="accordion-icon">
-            <use href="#icon"></use>
-          </svg>
-        </button>
-      </h2>
+const items = [
+  {
+    src: require('../assets/Tucker_711x400.jpeg'),
+    altText: 'Picture of Tucker',
+    key: 1,
+  },
+  {
+    src: require('../assets/Ernesto_711x400.jpeg'),
+    altText: 'Picture of Ernesto',
+    key: 2,
+  },
+  {
+    src: require('../assets/Bea.jpeg'),
+    altText: 'Picture of Bea',
+    key: 3,
+  },
+  {
+    src: require('../assets/Rashaan_711x400.jpeg'),
+    altText: 'Picture of Rashaan',
+    key: 4,
+  },
 
-      <div
-        className="accordion-content"
-        aria-labelledby={`${title}-heading`}
-        aria-hidden={!isActive}
-      >
-        <p>{content}</p>
-        <img className="accordion-image" src={imgSrc} alt={imgAlt} />
-      </div>
-    </div>
-  );
-};
+];
 
-const Accordion = ({ items }) => {
+function Creators(args) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
 
-  const handleToggle = (index) => {
-    setActiveIndex(activeIndex === index ? -1 : index);
+  const next = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+    setActiveIndex(nextIndex);
   };
 
+  const previous = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+    setActiveIndex(nextIndex);
+  };
+
+  const goToIndex = (newIndex) => {
+    if (animating) return;
+    setActiveIndex(newIndex);
+  };
+
+  const slides = items.map((item) => {
+    return (
+      <CarouselItem onExiting={() => setAnimating(true)} onExited={() => setAnimating(false)} key={item.src}>
+        <div className="carousel-image">
+          <img src={item.src} alt={item.altText} />
+        </div>
+      </CarouselItem>
+    );
+  });
+
   return (
-    <div className="accordion">
-      {items.map((item, index) => (
-        <AccordionPanel
-          key={index}
-          isActive={activeIndex === index}
-          onToggle={() => handleToggle(index)}
-          {...item}
+    <>
+      <h1 className="creators">Meet The Creators!</h1>
+      <Carousel
+        activeIndex={activeIndex}
+        next={next}
+        previous={previous}
+        {...args}
+        className="carousel-container"
+      >
+        <CarouselIndicators
+          items={items}
+          activeIndex={activeIndex}
+          onClickHandler={goToIndex}
         />
-      ))}
-    </div>
+        {slides}
+        <CarouselControl
+          direction="prev"
+          directionText="Previous"
+          onClickHandler={previous}
+        />
+        <CarouselControl
+          direction="next"
+          directionText="Next"
+          onClickHandler={next}
+        />
+      </Carousel>
+    </>
   );
-};
+}
 
-const items = CupidGang.map((person) => ({
-  title: person.name,
-  content: `${person.name} is from ${person.location}. Their birthday is on ${person.birthday}. They prefer ${person.lang_pref}. About them: ${person.about}`,
-  imgSrc: dog,
-  imgAlt: `${person.name}'s image`,
-}));
-
-const AboutUs = () => {
-  return (
-    <div>
-      <h1 className="cupid-title">meet the cupids</h1>
-      <Accordion items={items} />
-    </div>
-  );
-};
-
-export default AboutUs;
+export default Creators;

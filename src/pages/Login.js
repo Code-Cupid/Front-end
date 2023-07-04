@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 
 const Login = ({ setCurrentUser, loginUser }) => {
-  // const [formValues, setFormValues] = useState({
-  //   email: "",
-  //   password: "",
-  // });
-  // const navigate = useNavigate();
+  const [formValues, setFormValues] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
 
   // const handleChange = (e) => {
   //   const { name, value } = e.target;
@@ -18,20 +18,20 @@ const Login = ({ setCurrentUser, loginUser }) => {
   //   }));
   // };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  //   try {
-  //     const user = await loginUser(formValues);
-  //     if (user) {
-  //       setCurrentUser(user);
-  //       navigate(`/readme/${user.id}`);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert("Invalid Credentials");
-  //   }
-  // };
+    try {
+      const user = await loginUser(formValues);
+      if (user) {
+        setCurrentUser(user);
+        navigate(`/readme/${user.id}`);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Invalid Credentials");
+    }
+  };
 
   const handleGoHome = () => {
     navigate("/");
