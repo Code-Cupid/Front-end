@@ -20,19 +20,23 @@ const LogInBland = ({ login }) => {
     e.target.reset()
   }
 
-  return(
-    <div>
-      <form ref={formRef} onSubmit={handleSubmit}>
-        Email: <input type="email" name='email' placeholder="email" />
-        <br/>
-        Password: <input type="password" name='password' placeholder="password" />
-        <br/>
-        <input type='submit' value="Login" />
+  return (
+    <div className="card">
+      <h3 className="step-title">Login</h3>
+      <form className="form-group" ref={formRef} onSubmit={handleSubmit}>
+        Email: <input type="email" name="email" placeholder="email" />
+        <br />
+        Password:{" "}
+        <input type="password" name="password" placeholder="password" />
+        <br />
+        <input type="submit" value="Login" />
       </form>
       <br />
-      <div>Not registered yet, <a href="/signup">Signup</a> </div>
+      <div>
+        Not registered yet, <a href="/signup">Signup</a>{" "}
+      </div>
     </div>
-  )
+  );
 }
 // export
 export default LogInBland

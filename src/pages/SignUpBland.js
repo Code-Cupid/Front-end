@@ -20,31 +20,36 @@ const SignUp = ({ signup }) => {
     e.target.reset()
   }
 
-  return(
+  return (
     <>
-      <div>
-        <form ref={formRef} onSubmit={handleSubmit}>
-          Email: <input type="email" name="email" placeholder="email" />
-          <br />
-          Password:{" "}
-          <input type="password" name="password" placeholder="password" />
-          <br />
-          Confirm Password:{" "}
-          <input
-            type="password"
-            name="password_confirmation"
-            placeholder="confirm password"
-          />
-          <br />
-          <input type="submit" value="Submit" />
-        </form>
+      <div className="card">
+        <h3 className="step-title">Signup</h3>
+          <form className="form-group" ref={formRef} onSubmit={handleSubmit}>
+            Email: <input type="email" name="email" placeholder="email" />
+            <br />
+            Password:{" "}
+            <input type="password" name="password" placeholder="password" />
+            <br />
+            Confirm Password:{" "}
+            <input
+              type="password"
+              name="password_confirmation"
+              placeholder="confirm password"
+            />
+            <br />
+            <input
+              className="signup-login-button"
+              type="submit"
+              value="Submit"
+            />
+          </form>
         <br />
         <div>
           Already registered, <a href="/login">Login</a> here.
         </div>
       </div>
     </>
-  )
+  );
 }
 // export
 export default SignUp

@@ -1,26 +1,18 @@
 .card {
   border: 1px solid #333;
   border-radius: 0.5rem;
-  padding: 0.5rem;
-  max-width: 300px;
+  padding: 1rem;
+  max-width: fit-content;
   margin: 0 auto;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 0.5rem;
-  gap: 0.25em;
 }
 
 .form-group:last-child {
   margin: 0;
-}
-
-.form-group > label {
-  font-weight: bold;
-  font-size: 0.8em;
-  color: #333;
 }
 
 .form-group > input {
@@ -34,31 +26,17 @@
   margin: 0;
   margin-bottom: 1rem;
   text-align: center;
-}
-
-.multi-step-form {
-  overflow: hidden;
-  position: relative;
-  margin-top: 3%;
-}
-
-.hide {
-  display: none;
+  font-weight: bold;
 }
 
 .step-tag {
   text-align: center;
 }
 
-.bs-button {
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-  padding: 1px;
-}
 .signup-login-button {
   display: flex;
   justify-content: center;
   gap: 5px;
   padding: 1px;
+  text-align: center;
 }
