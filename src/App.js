@@ -35,7 +35,6 @@ const App = () => {
       .catch((error) => console.log("error", error));
   };
 
-
   const fetchUsers = () => {
     fetch(`${url}/users`)
       .then((response) => response.json())
@@ -163,6 +162,64 @@ const response = await fetch(`${url}/login`, {
     }
   };
 
+  const deleteReadMes = (id) => {
+    fetch(`${url}/readmes/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then(() => fetchReadmes())
+      .catch((errors) => console.log("ReadMe delete errors:", errors));
+  };
+ 
+  const loginUser = (user) => {
+    fetch(`${url}/login`, {
+    body: JSON.stringify(user),
+    headers: {
+    "Content-Type": "application/json",
+    "Accept": 'application/json'
+  },
+  method: "POST",
+  })
+  .then(response => {
+    if(!response.ok) {
+      throw Error(response.statusText)
+    }
+    localStorage.setItem("token", response.headers.get("Authorization"))
+    return response.json()
+  })
+  .then(payload => {
+    setCurrentUser(payload)
+  })
+  .catch(error => console.log("login errors: ", error))
+  }
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      const data = response.json();
+      localStorage.setItem("token", data.token);
+      fetchUser(data.user_id);
+    }
+  };
+
+  const logoutUser = () => {
+    fetch(`${url}/logout`, {
+      headers: {
+        "Content-Type": 'application/json',
+        "Authorization": localStorage.getItem("token")
+      },
+      method: 'DELETE'
+    })
+    .then(payload => {
+      localStorage.removeItem("token")
+      setCurrentUser(null)
+    })
+    .catch(error => console.log("log out errors: ", error))
+}
+
   return (
     <>
       <Navigation
@@ -175,10 +232,6 @@ const response = await fetch(`${url}/login`, {
         <Route
           path="/userindex"
           element={<UserIndex users={users} readmes={readmes} />}
-        />
-        <Route
-          path="/readme/:id"
-          element={<ReadMeShow currentUser={currentUser} readmes={readmes} />}
         />
         <Route
           path="/signup"
@@ -195,6 +248,20 @@ const response = await fetch(`${url}/login`, {
           element={<Edit readmes={readmes} updateReadme={updateReadme} />}
         />
         <Route
+          path="/signup"
+          element={
+            <Signup
+              setCurrentUser={setCurrentUser}
+              createUser={createUser}
+              createReadme={createReadme}
+            />
+          }
+        />
+        <Route
+          path="/edit/:id"
+          element={<Edit readmes={readmes} updateReadme={updateReadme} />}
+        />
+        {/* <Route
           path="/login"
           element={
             <Login
@@ -203,7 +270,7 @@ const response = await fetch(`${url}/login`, {
               loginUser={loginUser}
             />
           }
-        />
+        /> */}
         <Route path="/cupids" element={<AboutUs />} />
 
         {currentUser && (

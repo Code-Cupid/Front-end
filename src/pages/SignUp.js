@@ -38,6 +38,7 @@ const Signup = ({ createUser, createReadme }) => {
   };
 
   const handleNext = () => {
+    
     setStep((prevStep) => prevStep + 1);
   };
 
@@ -45,9 +46,9 @@ const Signup = ({ createUser, createReadme }) => {
     setStep((prevStep) => prevStep - 1);
   };
 
-const handleSubmit = async (e) => {
+const handleSubmit = (e) => {
   e.preventDefault();
-
+  createUser(newUser)
   const userData = {
     user: {
       email: formUser.email,

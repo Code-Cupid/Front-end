@@ -10,13 +10,13 @@ const Login = ({ setCurrentUser, loginUser }) => {
   });
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormValues((prevValues) => ({
+  //     ...prevValues,
+  //     [name]: value,
+  //   }));
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
