@@ -1,18 +1,14 @@
 import React from "react";
-import { Navbar, NavbarBrand, Nav, NavItem } from "reactstrap";
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import "../styles/Components.css";
 
-const Navigation = ({ currentUser, setCurrentUser }) => {
+const Navigation = ({ currentUser, logoutUser }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setCurrentUser(null);
+    logoutUser()
     navigate('/')
-  };
-
-  const handleNavigation = (path) => {
-    navigate(path);
   };
 
   return (
@@ -23,16 +19,35 @@ const Navigation = ({ currentUser, setCurrentUser }) => {
         </NavbarBrand>
       </Navbar>
       <Nav className="nav">
+        <NavItem className="nav-item">
+          <NavLink href="/userindex" className="nav-link">
+            See All Readmes
+          </NavLink>
+        </NavItem>
         {currentUser ? (
-          <NavItem className="nav-item">
-            <button onClick={() => handleLogout()}>Logout</button>
-            <button onClick={() => handleNavigation("/userindex")}>Other Users</button>
-          </NavItem>
+          <>
+            <NavItem className="nav-item">
+              <button onClick={() => handleLogout()}>Logout</button>
+            </NavItem>
+            <NavItem className="nav-item">
+              <NavLink href="/new" className="nav-link">
+                Create a Readme
+              </NavLink>
+            </NavItem>
+          </>
         ) : (
-          <NavItem className="nav-item">
-            <button onClick={() => handleNavigation("/login")}>Login</button>
-            <button onClick={() => handleNavigation("/signup")}>Signup</button>
-          </NavItem>
+          <>
+            <NavItem className="nav-item">
+              <NavLink href="/login" className="nav-link">
+                Log In
+              </NavLink>
+            </NavItem>
+            <NavItem className="nav-item">
+              <NavLink href="/signup" className="nav-link">
+                Sign Up
+              </NavLink>
+            </NavItem>
+          </>
         )}
       </Nav>
     </div>
