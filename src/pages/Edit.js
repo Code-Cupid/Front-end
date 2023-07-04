@@ -10,9 +10,9 @@ const Edit = ({ readmes, updateReadme, currentUser }) => {
     name: currentReadme?.name,
     age: currentReadme?.age,
     gender: currentReadme?.gender,
-    gender_pref: currentReadme?.gender_pref,
+    gender_preference: currentReadme?.gender_preference,
     location: currentReadme?.location,
-    language: currentReadme?.programming_lang,
+    language: currentReadme?.programming_language,
     image: currentReadme?.image,
     user_id: ""
   })
@@ -42,16 +42,16 @@ const Edit = ({ readmes, updateReadme, currentUser }) => {
           <Input type="text" name="gender" onChange={handleChange} value={editReadme.gender}/>
         </FormGroup>
         <FormGroup>
-          <Label for="gender_pref">Gender Preference</Label>
-          <Input type="text" name="gender_pref" onChange={handleChange} value={editReadme.gender_pref}/>
+          <Label for="gender_preference">Gender Preference</Label>
+          <Input type="text" name="gender_preference" onChange={handleChange} value={editReadme.gender_preference}/>
         </FormGroup>
         <FormGroup>
           <Label for="location">Location</Label>
           <Input type="text" name="location" onChange={handleChange} value={editReadme.location}/>
         </FormGroup>
         <FormGroup>
-          <Label for="language">Preferred Programming Language</Label>
-          <Input type="text" name="language" onChange={handleChange} value={editReadme.language}/>
+          <Label for="programming_language">Preferred Programming Language</Label>
+          <Input type="text" name="programming_language" onChange={handleChange} value={editReadme.programming_language}/>
         </FormGroup>
         <FormGroup>
           <Label for="image">Image URL</Label>

@@ -43,7 +43,7 @@ const New = ({ createReadme, currentUser }) => {
           <Input type="text" name="gender" onChange={handleChange} value={newReadme.gender}/>
         </FormGroup>
         <FormGroup>
-          <Label for="gender_pref">Gender Preference</Label>
+          <Label for="gender_preference">Gender Preference</Label>
           <Input type="text" name="gender_preference" onChange={handleChange} value={newReadme.gender_preference}/>
         </FormGroup>
         <FormGroup>
