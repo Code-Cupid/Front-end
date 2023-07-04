@@ -1,37 +1,40 @@
 import { render, screen } from "@testing-library/react"
 import { BrowserRouter } from 'react-router-dom'
-import Card from "../components/Card"
+import CardContainer from "../components/Card"
 
+describe('<CardContainer />', () => {
+  const mockPeople = [
+    {
+      name: "John Doe",
+      age: "30",
+      gender: "Male",
+      location: "New York, USA",
+      imgSrc: "path/to/image.jpg"
+    },
+    {
+      name: "Jane Smith",
+      age: "25",
+      gender: "Female",
+      location: "Los Angeles, USA",
+      imgSrc: "path/to/image2.jpg"
+    }
+  ]
 
-describe('<Card />', () => {
   it("renders without crashing", () => {
     render(
       <BrowserRouter>
-        <Card />
+        <CardContainer people={mockPeople} />
       </BrowserRouter>
     )
-    screen.logTestingPlaygroundURL()
   })
 
-  it('renders with a heading', () => { 
+  it('renders with all people', () => { 
     render(
       <BrowserRouter>
-        <Card />
+        <CardContainer people={mockPeople} />
       </BrowserRouter>
     )
-    const header = screen.getByRole('heading', {
-      name: /codecupid/i
-    })
-    expect(header).toBeInTheDocument()
+    const personElements = screen.getAllByRole('img', { name: /John Doe|Jane Smith/i })
+    expect(personElements.length).toBe(2)
   })
-
-  it('renders with a footer', () => { 
-    render(
-      <BrowserRouter>
-        <Card />
-      </BrowserRouter>
-    )
-    const footer = screen.getByText(/©2023 cupid/i)
-    expect(footer).toBeInTheDocument()
-  })
-}) 
+})
