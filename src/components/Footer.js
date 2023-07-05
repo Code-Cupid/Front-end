@@ -8,7 +8,9 @@ const Footer = () => {
       <Navbar>
         <span className="copyright"> &copy;2023 Charlie's Cupids </span>
         <NavItem className="nav-item">
-          <Link to="/cupids">Meet the Cupids</Link>
+          <Link to="/cupids" className="nav-link">
+            Meet the Cupids
+          </Link>
         </NavItem>
       </Navbar>
     </div>
