@@ -1,66 +1,62 @@
 import { render, screen } from "@testing-library/react"
 import { BrowserRouter } from "react-router-dom"
-import Show from "../pages/Show"
+import Edit from "../pages/Edit"
 
-describe("<Show />", () => {
+describe("<Edit />", () => {
   const currentUser = {}
   const readmes = []
+  const deleteReadMes = jest.fn()
+  const updateUser = jest.fn()
+  const deleteUser = jest.fn()
 
   it("renders without crashing", () => {
     render(
       <BrowserRouter>
-        <Show currentUser={currentUser} readmes={readmes} />
+        <Edit
+          currentUser={currentUser}
+          readmes={readmes}
+          deleteReadMes={deleteReadMes}
+          updateUser={updateUser}
+          deleteUser={deleteUser}
+        />
       </BrowserRouter>
     )
   })
 
-  it("renders with gender", () => {
+  it("renders the ReadMeShow component", () => {
     render(
       <BrowserRouter>
-        <Show currentUser={currentUser} readmes={readmes} />
+        <Edit
+          currentUser={currentUser}
+          readmes={readmes}
+          deleteReadMes={deleteReadMes}
+          updateUser={updateUser}
+          deleteUser={deleteUser}
+        />
       </BrowserRouter>
     )
-    const gender = screen.getByText(/gender:/i)
-    expect(gender).toBeInTheDocument()
+    const readMeShowComponent = screen.getByTestId("readme-show")
+    expect(readMeShowComponent).toBeInTheDocument()
+    expect(readMeShowComponent).toHaveAttribute("currentUser", currentUser)
+    expect(readMeShowComponent).toHaveAttribute("readmes", readmes)
+    expect(readMeShowComponent).toHaveAttribute("deleteReadMes", deleteReadMes)
+    expect(readMeShowComponent).toHaveAttribute("updateUser", updateUser)
+    expect(readMeShowComponent).toHaveAttribute("deleteUser", deleteUser)
   })
 
-  it("renders with gender pref", () => {
+  it("renders the NotFound component for unknown routes", () => {
     render(
       <BrowserRouter>
-        <Show currentUser={currentUser} readmes={readmes} />
+        <Edit
+          currentUser={currentUser}
+          readmes={readmes}
+          deleteReadMes={deleteReadMes}
+          updateUser={updateUser}
+          deleteUser={deleteUser}
+        />
       </BrowserRouter>
     )
-    const genderpref = screen.getByText(/gender pref:/i)
-    expect(genderpref).toBeInTheDocument()
-  })
-
-  it("renders with location", () => {
-    render(
-      <BrowserRouter>
-        <Show currentUser={currentUser} readmes={readmes} />
-      </BrowserRouter>
-    )
-    const location = screen.getByText(/location:/i)
-    expect(location).toBeInTheDocument()
-  })
-
-  it("renders with a favorite programming language", () => {
-    render(
-      <BrowserRouter>
-        <Show currentUser={currentUser} readmes={readmes} />
-      </BrowserRouter>
-    )
-    const language = screen.getByText(/favorite programming language:/i)
-    expect(language).toBeInTheDocument()
-  })
-
-  it("renders with an edit navlink", () => {
-    render(
-      <BrowserRouter>
-        <Show currentUser={currentUser} readmes={readmes} />
-      </BrowserRouter>
-    )
-    screen.getByRole('link', {name: /edit readme profile/i})
-    expect(location).toBeDefined()
+    const notFoundText = screen.queryByText("Page Not Found")
+    expect(notFoundText).toBeInTheDocument()
   })
 })
