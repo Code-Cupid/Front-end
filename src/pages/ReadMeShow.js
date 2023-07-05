@@ -36,17 +36,24 @@ const ReadMeShow = ({ readmes, currentUser, deleteReadmes }) => {
         </>
         {currentUser.id === currentReadme?.id ? (
           <>
-            <NavLink className="nav-item" to={`/edit/${currentReadme?.id}`}>
-              Edit ReadMe Profile
+            <NavLink
+              className="readme-button"
+              to={`/edit/${currentReadme?.id}`}
+            >
+              Edit Readme
             </NavLink>
-            <Button onClick={() => deleteReadmes(currentReadme?.id)}>
-              <NavLink to={"/userindex"} className="nav-item">
-                Delete
-              </NavLink>
-            </Button>
+            <br/>
+            <br/>
+            <NavLink
+              className="readme-button"
+              onClick={() => deleteReadmes(currentReadme?.id)}
+              to={"/userindex"}
+            >
+              Delete Readme
+            </NavLink>
           </>
         ) : (
-          <NavLink to={"/userindex"} className="nav-item">
+          <NavLink className="readme-button" to={"/userindex"}>
             Go Back to Meet Others
           </NavLink>
         )}

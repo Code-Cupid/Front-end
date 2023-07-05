@@ -39,8 +39,8 @@ const Navigation = ({ currentUser, currentReadme, logoutUser }) => {
                 </Link>
               </NavItem>
               <NavItem className="nav-item">
-                <Link to={`/edit/${currentReadme?.id}`} className="nav-link">
-                  Edit My Readme
+                <Link to="/readme/12" className="nav-link">
+                  Show My Readme
                 </Link>
               </NavItem>
             </>
