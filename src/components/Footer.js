@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div className="footer-container">
       <Navbar>
-        <span className="copyright"> &copy;2023 Cupid </span>
+        <span className="copyright"> &copy;2023 Charlie's Cupids </span>
         <NavItem className="nav-item">
           <Link to="/cupids">Meet the Cupids</Link>
         </NavItem>
