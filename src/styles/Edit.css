@@ -1,0 +1,28 @@
+.card {
+  border: 1px solid #333;
+  border-radius: 0.5rem;
+  padding: .5rem;
+  width: 100%;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group:last-child {
+  margin: 0;
+}
+
+.form-group > input {
+  border: 1px solid #333;
+  border-radius: 0.25em;
+  font-size: 1rem;
+  padding: 0.25em;
+}
+.signup-login-button {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding: 1px;
+  text-align: center;
+}

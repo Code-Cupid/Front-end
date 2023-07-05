@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../styles/Components.css";
 
-const Navigation = ({ currentUser, logoutUser }) => {
+const Navigation = ({ currentUser, currentReadme, logoutUser }) => {
   const navigate = useNavigate();
 
   return (
@@ -22,7 +22,8 @@ const Navigation = ({ currentUser, logoutUser }) => {
                 </Link>
               </NavItem>
               <NavItem className="nav-item">
-                <button className="nav-link"
+                <button
+                  className="nav-link"
                   onClick={() => {
                     logoutUser();
                     navigate("/");
@@ -35,6 +36,11 @@ const Navigation = ({ currentUser, logoutUser }) => {
               <NavItem className="nav-item">
                 <Link to="/new" className="nav-link">
                   Create a Readme
+                </Link>
+              </NavItem>
+              <NavItem className="nav-item">
+                <Link to={`/edit/${currentReadme?.id}`} className="nav-link">
+                  Edit My Readme
                 </Link>
               </NavItem>
             </>

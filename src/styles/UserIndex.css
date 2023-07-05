@@ -87,7 +87,7 @@ body {
 .card__name {
   font-size: 2.5rem;
   line-height: 1.1;
-  color: firebrick;
+  color:pink;
 }
 .card__age {
   font-size: 1.5rem;

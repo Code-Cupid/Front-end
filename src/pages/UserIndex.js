@@ -15,7 +15,7 @@ const UserIndex = ({ readmes }) => {
                   <div class="card">
                     <img src={readme.image} alt="" class="card__img" />
                     <div class="card__content">
-                      <h2 class="card__name">{readme.name}</h2>
+                      <p class="card__name">{readme.name}</p>
                       <p class="card__age">Age: {readme.age}</p>
                       <p class="card__description">Gender: {readme.gender}</p>
                     </div>
