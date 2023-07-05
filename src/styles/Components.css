@@ -1,18 +1,19 @@
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none
+}
 /* Header */
 .header-container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
   align-items: center;
   color: white;
 }
 .logo {
-  height: 13%;
-  width: 13%;
+  height: 15%;
+  width: 15%;
   margin-left:0;
-}
-.link-box {
-  justify-content: center;
-  color: white;
 }
 .nav-link {
   display: flex;
@@ -28,6 +29,7 @@
   justify-content: space-between;
   margin-right: 5px;
   gap: 5px;
+  color: white;
 }
 .nav-item button,
 .nav-item a {
@@ -52,7 +54,19 @@
   color: white;
 }
 .cupid-coders {
+  display: flex;
+  text-transform: uppercase;
+  cursor: pointer;
+  flex-direction: row;
+  justify-content: space-between;
   text-align: center;
+  padding: 0px 30px; /* top-bottom, left-right */
+  font-size: 1em;
+  text-decoration: none; /* remove underline from links */
+  color: inherit; /* make the link text color the same as regular text */
+  background-color: #c24ccf; /* add a background color */
+  border: 1px solid #333; /* add a border */
+  border-radius: 5px; /* optional: round the corners of the button */
 }
 .copyright {
   text-align: center;

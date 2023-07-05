@@ -1,11 +1,9 @@
 .card {
   border: 1px solid #333;
   border-radius: 0.5rem;
-  padding: 1rem;
-  max-width: fit-content;
-  margin: 0 auto;
+  padding: .5rem;
+  width: 100%;
 }
-
 .form-group {
   display: flex;
   flex-direction: column;
@@ -21,28 +19,6 @@
   font-size: 1rem;
   padding: 0.25em;
 }
-
-.step-title {
-  margin: 0;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.multi-step-form {
-  overflow: hidden;
-  position: relative;
-  margin-top: 3%;
-}
-
-.hide {
-  display: none;
-}
-
-.step-tag {
-  text-align: center;
-}
-
-
 .signup-login-button {
   display: flex;
   justify-content: center;

@@ -7,7 +7,6 @@ import Homepage from "./pages/Homepage";
 import Navigation from "./components/Navigation";
 import NotFound from "./pages/NotFound";
 import UserIndex from "./pages/UserIndex";
-import SignupReadme from "./pages/SignupReadme"
 // file was named Show, best practice same name as the component
 import ReadMeShow from "./pages/ReadMeShow";
 // new imports for this branch

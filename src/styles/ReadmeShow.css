@@ -1,0 +1,101 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+}
+.main-title {
+  justify-content: center;
+  grid-area: 1 / 1 / 2 / 7; 
+  text-align: center;
+  font-weight: bold;
+}
+.pic-container {
+  grid-area: 2 / 1 / 6 / 4;
+  
+}
+.card__img {
+  width: 80%;
+  height: 70%;
+  aspect-ratio: 1 / 1.25;
+  object-fit: contain;
+  justify-content: center;
+  
+}
+.readme-container {
+  grid-area: 2 / 4 / 6 / 7; 
+}
+.card__name {
+  margin-top: 15px;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+.readme-button {
+  padding: 0px 30px; /* top-bottom, left-right */
+  font-size: 1em;
+  text-decoration: none; /* remove underline from links */
+  color: white; /* make the link text color the same as regular text */
+  background-color: #c24ccf; /* add a background color */
+  border: 1px solid #333; /* add a border */
+  border-radius: 5px; /* optional: round the corners of the button */
+  
+}

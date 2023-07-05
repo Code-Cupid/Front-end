@@ -2,6 +2,8 @@
 import React, { useRef } from "react"
 import { useNavigate } from "react-router-dom"
 
+import '../styles/Signup.css'
+
 // declare functional component
 const SignUp = ({ signup }) => {
 
@@ -20,10 +22,11 @@ const SignUp = ({ signup }) => {
     e.target.reset()
   }
 
-  return(
+  return (
     <>
-      <div>
-        <form ref={formRef} onSubmit={handleSubmit}>
+      <div className="card">
+        <h3 className="step-title">Signup</h3>
+        <form className="form-group" ref={formRef} onSubmit={handleSubmit}>
           Email: <input type="email" name="email" placeholder="email" />
           <br />
           Password:{" "}
@@ -36,15 +39,14 @@ const SignUp = ({ signup }) => {
             placeholder="confirm password"
           />
           <br />
-          <input type="submit" value="Submit" />
+          <input className="signup-login-button" type="submit" value="Submit" />
         </form>
         <br />
         <div>
-          Already registered, <a href="/login">Login</a> here.
+          Already registered? <a href="/login">Login</a> here.
         </div>
       </div>
     </>
-  )
+  );
 }
-// export
 export default SignUp
